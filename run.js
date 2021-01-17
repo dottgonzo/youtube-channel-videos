@@ -2,7 +2,7 @@ var youtube = require('youtube-api');
 var fs = require('fs');
 
 function channelVideosRecursive(channelId, callStackSize, pageToken, currentItems, callback) {
-    console.log(channelId, callStackSize, pageToken, currentItems)
+    console.log('fetching', pageToken)
     youtube.search.list({
         type: 'video',
         part: 'snippet',
