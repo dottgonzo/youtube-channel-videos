@@ -2,6 +2,7 @@ var youtube = require('youtube-api');
 var fs = require('fs');
 
 function channelVideosRecursive(channelId, callStackSize, pageToken, currentItems, callback) {
+    console.log(channelId, callStackSize, pageToken, currentItems)
     youtube.search.list({
         type: 'video',
         part: 'snippet',
@@ -10,12 +11,12 @@ function channelVideosRecursive(channelId, callStackSize, pageToken, currentItem
         channelId: channelId,
     }, function(err, data) {
         if (err) return console.log('error: ' + err);
+        console.log(data.data.items)
 
-        for (var x in data.items) {
-            currentItems.push(data.items[x]);
+        for (var x in data.data.items) {
+            currentItems.push(data.data.items[x]);
         }
-
-        if (data.nextPageToken) {
+        if (data.data.nextPageToken) {
             channelVideosRecursive(channelId, callStackSize + 1, data.nextPageToken, currentItems, callback);
         } else {
             callback(currentItems);
